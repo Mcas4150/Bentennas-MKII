@@ -2,9 +2,24 @@ import 'babel-polyfill'
  
 import React from 'react'
 import { render } from 'react-dom'
-import Root from './containers/Root'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
+import configureStore, { history} from './core/configureStore'
+import App from './views/app'
+import "./index.css"
+
  
+const store = configureStore()
+ 
+const target = document.querySelector('#root');
+
 render(
-  <Root />,
-  document.getElementById('root')
-)
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <App />
+      </div>
+    </ConnectedRouter>
+  </Provider>,
+  target
+);

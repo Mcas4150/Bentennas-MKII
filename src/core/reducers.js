@@ -1,20 +1,11 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_PAGINATION,
-  INVALIDATE_PAGINATION,
+  INVALID_MIXCLOUD,
   REQUEST_POSTS,
   RECEIVE_POSTS
 } from './actions'
  
-function selectedPagination(state = 20 , action) {
-  switch (action.type) {
-    case SELECT_PAGINATION:
-      return action.pagination
-    default:
-      return state
-  }
-}
- 
+
 function posts(
   state = {
     isFetching: false,
@@ -24,7 +15,7 @@ function posts(
   action
 ) {
   switch (action.type) {
-    case INVALIDATE_PAGINATION:
+    case INVALID_MIXCLOUD:
       return Object.assign({}, state, {
         didInvalidate: true
       })
@@ -45,9 +36,9 @@ function posts(
   }
 }
  
-function postsByPagination(state = {}, action) {
+function postsByMixcloud(state = {}, action) {
   switch (action.type) {
-    case INVALIDATE_PAGINATION:
+    case INVALID_MIXCLOUD:
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
       return Object.assign({}, state, {
@@ -59,8 +50,7 @@ function postsByPagination(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  postsByPagination,
-  selectedPagination
+  postsByMixcloud
 })
  
 export default rootReducer

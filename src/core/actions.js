@@ -2,63 +2,47 @@ import fetch from 'cross-fetch'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_PAGINATION = 'SELECT_PAGINATION'
-export const INVALIDATE_PAGINATION = 'INVALIDATE_PAGINATION'
- 
-export function selectPagination(pagination) {
+export const INVALID_MIXCLOUD = 'INVALIDATE_MIXCLOUD'
+export const LOAD_PLAYER = "LOAD_PLAYER"
+
+
+export const loadPlayer = (url) => {
+  return dispatch => {
+    dispatch({
+      type: LOAD_PLAYER,
+      url
+    });
+  };
+};
+
+export function invalidateMixcloud(mixcloud) {
   return {
-    type: SELECT_PAGINATION,
-    pagination
+    type: INVALID_MIXCLOUD,
+    mixcloud
   }
 }
  
-export function invalidatePagination(pagination) {
-  return {
-    type: INVALIDATE_PAGINATION,
-    pagination
-  }
-}
- 
-function requestPosts(pagination) {
+function requestPosts(mixcloud) {
   return {
     type: REQUEST_POSTS,
-    pagination
+    mixcloud
   }
 }
  
-function receivePosts(pagination, json) {
+function receivePosts(mixcloud, json) {
   return {
     type: RECEIVE_POSTS,
-    pagination,
+    mixcloud,
     posts: json.data,
     receivedAt: Date.now()
   }
 }
  
-function fetchPosts(pagination) {
+export function fetchPosts(mixcloud) {
   return dispatch => {
-    dispatch(requestPosts(pagination))
-    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=${pagination}`)
+    dispatch(requestPosts(mixcloud))
+    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=20`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(pagination, json)))
-  }
-}
-
-function shouldFetchPosts(state, pagination) {
-  const posts = state.postsByPagination[pagination]
-  if (!posts) {
-    return true
-  } else if (posts.isFetching) {
-    return false
-  } else {
-    return posts.didInvalidate
-  }
-}
- 
-export function fetchPostsIfNeeded(pagination) {
-  return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), pagination)) {
-      return dispatch(fetchPosts(pagination))
-    }
+      .then(json => dispatch(receivePosts(mixcloud, json)))
   }
 }
