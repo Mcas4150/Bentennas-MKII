@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
-  selectSubreddit,
+  selectPagination,
   fetchPostsIfNeeded,
-  invalidateSubreddit
+  invalidatePagination
 } from '../core/actions'
 import Picker from '../components/Picker'
 import Posts from '../components/Posts'
+import ReactPlayer from 'react-player'
  
 class AsyncApp extends Component {
   constructor(props) {
@@ -17,36 +18,44 @@ class AsyncApp extends Component {
   }
  
   componentDidMount() {
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    const { dispatch, selectedPagination } = this.props
+    dispatch(fetchPostsIfNeeded(selectedPagination))
   }
  
   componentDidUpdate(prevProps) {
-    if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
-      const { dispatch, selectedSubreddit } = this.props
-      dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    if (this.props.selectedPagination !== prevProps.selectedPagination) {
+      const { dispatch, selectedPagination } = this.props
+      dispatch(fetchPostsIfNeeded(selectedPagination))
     }
   }
  
-  handleChange(nextSubreddit) {
-    this.props.dispatch(selectSubreddit(nextSubreddit))
-    this.props.dispatch(fetchPostsIfNeeded(nextSubreddit))
+  handleChange(nextPagination) {
+    this.props.dispatch(selectPagination(nextPagination))
+    this.props.dispatch(fetchPostsIfNeeded(nextPagination))
   }
  
+ 
+
   handleRefreshClick(e) {
     e.preventDefault()
  
-    const { dispatch, selectedSubreddit } = this.props
-    dispatch(invalidateSubreddit(selectedSubreddit))
-    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    const { dispatch, selectedPagination } = this.props
+    dispatch(invalidatePagination(selectedPagination))
+    dispatch(fetchPostsIfNeeded(selectedPagination))
   }
  
   render() {
-    const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props
+    const { selectedPagination, posts, isFetching, lastUpdated } = this.props
     return (
       <div>
+        <ReactPlayer
+            url="https://www.mixcloud.com/NTSRadio/shamos-11th-april-2018/"
+            width="100%"
+            height="60px"
+            controls="true"
+        />
         <Picker
-          value={selectedSubreddit}
+          value={selectedPagination}
           onChange={this.handleChange}
           options={[ 20, 50]}
         />
@@ -67,13 +76,14 @@ class AsyncApp extends Component {
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>
             <Posts posts={posts} />
           </div>}
+          
       </div>
     )
   }
 }
  
 AsyncApp.propTypes = {
-  selectedSubreddit: PropTypes.string.isRequired,
+  selectedPagination: PropTypes.string.isRequired,
   posts: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
@@ -81,18 +91,18 @@ AsyncApp.propTypes = {
 }
  
 function mapStateToProps(state) {
-  const { selectedSubreddit, postsBySubreddit } = state
+  const { selectedPagination, postsByPagination } = state
   const {
     isFetching,
     lastUpdated,
     items: posts
-  } = postsBySubreddit[selectedSubreddit] || {
+  } = postsByPagination[selectedPagination] || {
     isFetching: true,
     items: []
   }
  
   return {
-    selectedSubreddit,
+    selectedPagination,
     posts,
     isFetching,
     lastUpdated

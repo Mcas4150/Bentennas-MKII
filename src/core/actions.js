@@ -2,50 +2,50 @@ import fetch from 'cross-fetch'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+export const SELECT_PAGINATION = 'SELECT_PAGINATION'
+export const INVALIDATE_PAGINATION = 'INVALIDATE_PAGINATION'
  
-export function selectSubreddit(subreddit) {
+export function selectPagination(pagination) {
   return {
-    type: SELECT_SUBREDDIT,
-    subreddit
+    type: SELECT_PAGINATION,
+    pagination
   }
 }
  
-export function invalidateSubreddit(subreddit) {
+export function invalidatePagination(pagination) {
   return {
-    type: INVALIDATE_SUBREDDIT,
-    subreddit
+    type: INVALIDATE_PAGINATION,
+    pagination
   }
 }
  
-function requestPosts(subreddit) {
+function requestPosts(pagination) {
   return {
     type: REQUEST_POSTS,
-    subreddit
+    pagination
   }
 }
  
-function receivePosts(subreddit, json) {
+function receivePosts(pagination, json) {
   return {
     type: RECEIVE_POSTS,
-    subreddit,
+    pagination,
     posts: json.data,
     receivedAt: Date.now()
   }
 }
  
-function fetchPosts(subreddit) {
+function fetchPosts(pagination) {
   return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=${subreddit}`)
+    dispatch(requestPosts(pagination))
+    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=${pagination}`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
+      .then(json => dispatch(receivePosts(pagination, json)))
   }
 }
 
-function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit[subreddit]
+function shouldFetchPosts(state, pagination) {
+  const posts = state.postsByPagination[pagination]
   if (!posts) {
     return true
   } else if (posts.isFetching) {
@@ -55,10 +55,10 @@ function shouldFetchPosts(state, subreddit) {
   }
 }
  
-export function fetchPostsIfNeeded(subreddit) {
+export function fetchPostsIfNeeded(pagination) {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
-      return dispatch(fetchPosts(subreddit))
+    if (shouldFetchPosts(getState(), pagination)) {
+      return dispatch(fetchPosts(pagination))
     }
   }
 }

@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_SUBREDDIT,
-  INVALIDATE_SUBREDDIT,
+  SELECT_PAGINATION,
+  INVALIDATE_PAGINATION,
   REQUEST_POSTS,
   RECEIVE_POSTS
 } from './actions'
  
-function selectedSubreddit(state = 20 , action) {
+function selectedPagination(state = 20 , action) {
   switch (action.type) {
-    case SELECT_SUBREDDIT:
-      return action.subreddit
+    case SELECT_PAGINATION:
+      return action.pagination
     default:
       return state
   }
@@ -24,7 +24,7 @@ function posts(
   action
 ) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
+    case INVALIDATE_PAGINATION:
       return Object.assign({}, state, {
         didInvalidate: true
       })
@@ -45,13 +45,13 @@ function posts(
   }
 }
  
-function postsBySubreddit(state = {}, action) {
+function postsByPagination(state = {}, action) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
+    case INVALIDATE_PAGINATION:
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
       return Object.assign({}, state, {
-        [action.subreddit]: posts(state[action.subreddit], action)
+        [action.pagination]: posts(state[action.pagination], action)
       })
     default:
       return state
@@ -59,8 +59,8 @@ function postsBySubreddit(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  postsBySubreddit,
-  selectedSubreddit
+  postsByPagination,
+  selectedPagination
 })
  
 export default rootReducer
