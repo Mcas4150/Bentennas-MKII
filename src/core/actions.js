@@ -6,14 +6,25 @@ export const INVALID_MIXCLOUD = 'INVALIDATE_MIXCLOUD'
 export const LOAD_PLAYER = "LOAD_PLAYER"
 
 
-export const loadPlayer = (url) => {
-  return dispatch => {
-    dispatch({
-      type: LOAD_PLAYER,
-      url
-    });
-  };
-};
+const loadToPlayer = mixurl => ({
+  type: LOAD_PLAYER,
+  mixurl
+})
+
+export const loadPlayer = mixurl => (dispatch, getState) => {
+    dispatch(loadToPlayer(mixurl))
+  
+}
+
+
+// export const loadPlayer = (url) => {
+//   return dispatch => {
+//     dispatch({
+//       type: LOAD_PLAYER,
+//       url
+//     });
+//   };
+// };
 
 export function invalidateMixcloud(mixcloud) {
   return {
@@ -38,6 +49,11 @@ function receivePosts(mixcloud, json) {
   }
 }
  
+
+
+
+
+
 export function fetchPosts(mixcloud) {
   return dispatch => {
     dispatch(requestPosts(mixcloud))
