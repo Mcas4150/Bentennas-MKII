@@ -1,0 +1,4 @@
+.mix-page__carousel{
+    margin: 1.5rem 0;
+  filter: grayscale(50%) saturate(50%);
+}

@@ -51,13 +51,10 @@ function receivePosts(mixcloud, json) {
  
 
 
-
-
-
 export function fetchPosts(mixcloud) {
   return dispatch => {
     dispatch(requestPosts(mixcloud))
-    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=20`)
+    return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=60`)
       .then(response => response.json())
       .then(json => dispatch(receivePosts(mixcloud, json)))
   }
