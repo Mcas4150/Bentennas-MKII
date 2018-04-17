@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Mixlist from '../components/mixlist'
 import ReactPlayer from 'react-player'
  
+
 export default class MixesPage extends Component {
   render() {
     return (
