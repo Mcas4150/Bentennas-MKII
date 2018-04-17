@@ -4,8 +4,8 @@ import MixesPage from './pages/mixes-page/index.js';
 import VideosPage from './pages/videos-page/index.js';
 import EventsPage from './pages/events-page/index.js';
 import AboutPage from './pages/about-page/index.js';
-import ReactPlayer from 'react-player';
 import AppHeader from './components/app-header';
+import FooterPlayer from './components/footer-player/index.js';
 
 const App = () => (
   <div>
@@ -19,12 +19,7 @@ const App = () => (
       <Route exact path="/about" component={AboutPage} />
     </main>
     <footer>
-      <ReactPlayer
-              url="https://www.mixcloud.com/NTSRadio/shamos-11th-april-2018/"
-              width="100%"
-              height="60px"
-              controls="true"
-          />
+      <FooterPlayer/>
     </footer>
   </div>
 );
