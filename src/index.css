@@ -6,7 +6,8 @@ body {
    font-family: Helvetica Neue, Arial, sans-serif;
    font-size: 0.875rem;
    line-height: 1.42857;
-   color: #aaabac; 
+   color: #aaabac;
+   background-color:#1d1e1f; 
 }
 
 a {

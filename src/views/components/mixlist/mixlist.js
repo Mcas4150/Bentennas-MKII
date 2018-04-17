@@ -9,13 +9,7 @@ import "./mixlist.css"
  class Mixlist extends Component {
     static propTypes = {
         Mixcloud: PropTypes.string.isRequired,
-        posts: PropTypes.arrayOf(
-            PropTypes.shape({
-                mixUrl: PropTypes.string.isRequired,
-                mixImage: PropTypes.string.isRequired,
-                mixTitle: PropTypes.string.isRequired
-            }).isRequired
-        ).isRequired,
+        posts: PropTypes.array.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -27,20 +21,22 @@ import "./mixlist.css"
     render() {
 
        const mixlistClassName = classNames('mixlist')
-       const mixcardClassName = classNames('')
+       const mixcardClassName = classNames('mixcard')
 
         return (
         <div className={mixlistClassName}>
-            
-                {this.props.posts.map((mix, i) => 
-                    <div key={i} className={mixcardClassName}>
-                        <a href={mix.url}>
-                            <img src={mix.pictures.large}/>
+            {this.props.posts.map((mix, i) => 
+                <div key={i} className={mixcardClassName}>
+                    <a href={mix.url}>
+                        <div className='mixcard__image--border'> 
+                            <img class="mixcard__image--url" src={mix.pictures.large}/>   
+                        </div>
+                        <div className="mixcard__name">
                             <p>{mix.name}</p>
-                        </a>
-                    </div>)    
-                }
-           
+                        </div>
+                    </a>
+                </div>
+            )}
         </div>
         )
    }
