@@ -4,6 +4,7 @@ import { fetchPosts, invalidateMixcloud } from '../../../core/actions'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import MixCard from '../mix-card'
+import LoadingIndicator from '../loading-indicator/loading-indicator';
 import "./mixlist.css"
  
  class Mixlist extends Component {
@@ -32,7 +33,7 @@ import "./mixlist.css"
                             <img class="mixcard__image--url" src={mix.pictures.large}/>   
                         </div>
                         <div className="mixcard__name">
-                            <p>{mix.name}</p>
+                            <div>{mix.name}</div>
                         </div>
                     </a>
                 </div>

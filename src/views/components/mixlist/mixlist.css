@@ -25,11 +25,12 @@
 .mixcard__name{
     color: #d6d6d6;
     text-decoration-line: none;
-    font-size: 1em;
+    font-size: 1rem;
     padding: 5px;
     -o-transition: .5s;
     -webkit-transition: .5s;
     transition: .5s;
+    text-align: center;
 }
 
 @media (min-width: 1500px){
