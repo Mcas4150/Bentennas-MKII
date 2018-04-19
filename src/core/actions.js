@@ -1,24 +1,42 @@
 import fetch from 'cross-fetch'
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const REQUEST_MIXES = 'REQUEST_MIXES'
+export const RECEIVE_MIXES = 'RECEIVE_MIXES'
 export const INVALID_MIXCLOUD = 'INVALIDATE_MIXCLOUD'
 export const REQUEST_VIDEOS = 'REQUEST_VIDEOS'
 export const RECEIVE_VIDEOS = 'RECEIVE_VIDEOS'
 export const INVALID_YOUTUBE = 'INVALIDATE_YOUTUBE'
-export const LOAD_PLAYER = "LOAD_PLAYER"
+export const LOAD_PLAYER = 'LOAD_PLAYER'
+export const REQUEST_PLAYER = 'REQUEST_PLAYER'
+export const RECEIVE_PLAYER = 'RECEIVE_PLAYER'
 
 
-const loadToPlayer = mixurl => ({
-  type: LOAD_PLAYER,
-  mixurl
-})
-
-export const loadPlayer = mixurl => (dispatch, getState) => {
-    dispatch(loadToPlayer(mixurl))
-  
+export function loadPlayer(newUrl) {
+  return {
+    type: LOAD_PLAYER,
+    newUrl
+  }
 }
 
+export function requestPlayer(url) {
+  return {
+    type: REQUEST_PLAYER,
+    url
+  }
+}
+
+export function receivePlayer(url) {
+  return {
+    type: RECEIVE_PLAYER,
+    newUrl: url
+  }
+}
+
+
+//  dispatch(loadToPlayer(mixurl))
+  
+// }export const loadPlayer = mixurl => (dispatch, getState) => {
+   
 
 // export const loadPlayer = (url) => {
 //   return dispatch => {
@@ -29,6 +47,7 @@ export const loadPlayer = mixurl => (dispatch, getState) => {
 //   };
 // };
 
+
 export function invalidateMixcloud(mixcloud) {
   return {
     type: INVALID_MIXCLOUD,
@@ -36,30 +55,29 @@ export function invalidateMixcloud(mixcloud) {
   }
 }
  
-function requestPosts(mixcloud) {
+function requestMixes(mixcloud) {
   return {
-    type: REQUEST_POSTS,
+    type: REQUEST_MIXES,
     mixcloud
   }
 }
  
-function receivePosts(mixcloud, json) {
+function receiveMixes(json) {
   return {
-    type: RECEIVE_POSTS,
-    mixcloud,
-    posts: json.data,
+    type: RECEIVE_MIXES,
+    mixes: json.data,
     receivedAt: Date.now()
   }
 }
  
 
 
-export function fetchPosts(mixcloud) {
+export function fetchMixes() {
   return dispatch => {
-    dispatch(requestPosts(mixcloud))
+    dispatch(requestMixes())
     return fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=60`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(mixcloud, json)))
+      .then(json => dispatch(receiveMixes(json)))
   }
 }
 
@@ -95,3 +113,5 @@ export function fetchVideos(youtube) {
       .then(json => dispatch(receiveVideos(youtube, json)))
   }
 }
+
+// export function changePlayer

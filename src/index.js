@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import configureStore, { history} from './core/configureStore'
 import App from './views/app'
-import "./index.css"
+
 
  
 const store = configureStore()

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { fetchPosts, invalidateMixcloud } from '../../../core/actions'
+import { fetchMixes, invalidateMixcloud} from "../../../core/actions"
+// import { fetchMixes, mixesActions } from '../../../core/mixes/index.js'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import MixCard from '../mix-card'
@@ -10,13 +11,13 @@ import "./mixlist.css"
  class Mixlist extends Component {
     static propTypes = {
         Mixcloud: PropTypes.string.isRequired,
-        posts: PropTypes.array.isRequired,
+        mixes: PropTypes.array.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
     componentDidMount() {
         const { dispatch, Mixcloud } = this.props
-        dispatch(fetchPosts(Mixcloud))
+        dispatch(fetchMixes(Mixcloud))
       }
       
     render() {
@@ -26,7 +27,7 @@ import "./mixlist.css"
 
         return (
         <div className={mixlistClassName}>
-            {this.props.posts.map((mix, i) => 
+            {this.props.mixes.map((mix, i) => 
                 <div key={i} className={mixcardClassName}>
                     <a href={mix.url}>
                         <div className='mixcard__image--border'> 
@@ -44,16 +45,11 @@ import "./mixlist.css"
 }
 
 function mapStateToProps(state) {
-    const { Mixcloud, postsByMixcloud } = state
-    const {
-      items: posts
-    } = postsByMixcloud[Mixcloud] || {
-      items: []
-    }
-   
+    const { Mixcloud, mixesReducer } = state
+    const { items: mixes } = mixesReducer[Mixcloud] || { items: [] }
     return {
       Mixcloud,
-      posts
+      mixes
     }
   }
    

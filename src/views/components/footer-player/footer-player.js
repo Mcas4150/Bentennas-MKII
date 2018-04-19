@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types'
+import {playerReducer} from '../../../core/reducers'
+import { bindActionCreators } from 'redux';
 import { loadPlayer } from '../../../core/actions'
 import { connect } from 'react-redux'
 import './footer-player.css';
@@ -8,42 +10,58 @@ import './footer-player.css';
 
 
 
-class FooterPlayer extends Component {
-    static propTypes = {
-        MixUrl: PropTypes.string.isRequired,
-        dispatch: PropTypes.func.isRequired
-    };
+const  FooterPlayer = props => (
+    
+    
+    // static propTypes = {
+    //     MixUrl: PropTypes.string.isRequired,
+    //     newurl: PropTypes.string.isRequired,
+    //     dispatch: PropTypes.func.isRequired
+    // };
 
-    componentDidMount() {
-        const { dispatch, MixUrl } = this.props
-        dispatch(loadPlayer(MixUrl))
-      }
+    // componentDidMount() {
+    //     const { dispatch, MixUrl } = this.props
+    //     dispatch(loadPlayer(MixUrl))
+    //   }
       
 
 
-  render() {
-    return (
+//   render() {
+//     const { newurl } = this.props
+//     return (
+       <div> 
+        <div onClick={props.playerReducer}> pizza </div>
         <div className="footer__player">
             <ReactPlayer
-              url="https://www.mixcloud.com/NTSRadio/shamos-11th-april-2018/"
+              url=""
               width="100%"
               height="60px"
               controls="true"
           />
-      </div>
-     
-    );
-  }
-}
+         </div>
+        </div>
+//     );
+//   }
+)
 
 
 function mapStateToProps(state) {
-    const { MixUrl } = state
+    const { MixUrl, playerReducer } = state
+    const { mixUrl: newurl } = playerReducer[MixUrl] || { mixUrl: "" }
     return {
-      MixUrl
+      MixUrl,
+      newurl
     }
   }
    
-  export default connect( mapStateToProps )(FooterPlayer)
+  const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      playerReducer
+    },
+    dispatch
+  );
+
+  export default connect( mapStateToProps, mapDispatchToProps )(FooterPlayer)
 
 
