@@ -34,7 +34,6 @@ class AppHeader extends Component {
                  </div>
                </div>
            </div> */}
-         {/*Mobile*/}
          {/*Desktopy*/}
            <div className="desktop">
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/"}>MIXES</NavLink>
@@ -42,10 +41,7 @@ class AppHeader extends Component {
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/events"}>EVENTS</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"https://nts.ochre.store/"} target="_blank">SHOP</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/about"}>ABOUT</NavLink>
-             <div className="right-header">              
-             </div>
            </div>
-         {/*Mobile*/}
          </div>
        </div>
  

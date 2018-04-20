@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { fetchMixes, invalidateMixcloud} from "../../../core/actions"
 // import { fetchMixes, mixesActions } from '../../../core/mixes/index.js'
-import { connect } from 'react-redux'
+import { connect, bindActionCreators } from 'react-redux'
 import classNames from 'classnames'
 import MixCard from '../mix-card'
 import LoadingIndicator from '../loading-indicator/loading-indicator';
@@ -35,6 +35,7 @@ import "./mixlist.css"
                         </div>
                         <div className="mixcard__name">
                             <div>{mix.name}</div>
+                           
                         </div>
                     </a>
                 </div>
@@ -47,15 +48,22 @@ import "./mixlist.css"
 function mapStateToProps(state) {
     const { Mixcloud, mixesReducer } = state
     const { items: mixes } = mixesReducer[Mixcloud] || { items: [] }
+
     return {
       Mixcloud,
       mixes
     }
   }
    
+
+//   function mapDispatchToProps(dispatch) {
+//     //   return {
+//     //     onPlay: bindActionCreators(actions.playMix, dispatch),
+//     //   };
+//   }
+
   export default connect(
-    mapStateToProps,
-   
+    mapStateToProps
     )(Mixlist)
 
 

@@ -3,9 +3,11 @@ import {
   INVALID_YOUTUBE,
   REQUEST_VIDEOS,
   RECEIVE_VIDEOS,
-  LOAD_PLAYER
+  LOAD_PLAYER,
+  PLAY_MIX
 } from './actions'
 import { mixesReducer } from './mixes'
+import track from './track';
  
 
 
@@ -125,12 +127,17 @@ export function playerReducer (state = initialState, action) {
           playing: true,
           hidden: false
       };
-      default:
-      return state
+    case PLAY_MIX:
+        return setPlay(state, action)
+      };
+      return state;
   }
-};
 
 
+function setPlay(state, action){
+  const { newUrl } = action;
+  return {...state, url: newUrl };
+}
 
 
 
@@ -138,7 +145,8 @@ export function playerReducer (state = initialState, action) {
 const rootReducer = combineReducers({
   mixesReducer,
   playerReducer,
-  videosByYoutube
+  videosByYoutube,
+  track
 })
  
 export default rootReducer

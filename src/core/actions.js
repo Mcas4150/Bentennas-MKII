@@ -9,6 +9,8 @@ export const INVALID_YOUTUBE = 'INVALIDATE_YOUTUBE'
 export const LOAD_PLAYER = 'LOAD_PLAYER'
 export const REQUEST_PLAYER = 'REQUEST_PLAYER'
 export const RECEIVE_PLAYER = 'RECEIVE_PLAYER'
+export const PLAY_MIX = 'PLAY_MIX'
+export const TRACKS_SET = 'TRACKS_SET';
 
 
 export function loadPlayer(newUrl) {
@@ -17,6 +19,14 @@ export function loadPlayer(newUrl) {
     newUrl
   }
 }
+
+export function playMix(newUrl) {
+  return {
+    type: PLAY_MIX,
+    newUrl
+  }
+}
+
 
 export function requestPlayer(url) {
   return {
@@ -31,21 +41,6 @@ export function receivePlayer(url) {
     newUrl: url
   }
 }
-
-
-//  dispatch(loadToPlayer(mixurl))
-  
-// }export const loadPlayer = mixurl => (dispatch, getState) => {
-   
-
-// export const loadPlayer = (url) => {
-//   return dispatch => {
-//     dispatch({
-//       type: LOAD_PLAYER,
-//       url
-//     });
-//   };
-// };
 
 
 export function invalidateMixcloud(mixcloud) {
@@ -115,3 +110,21 @@ export function fetchVideos(youtube) {
 }
 
 // export function changePlayer
+
+export function fetchStream(){
+  return function (dispatch) {
+  fetch(`https://api.mixcloud.com/NTSRadio/cloudcasts/?limit=60`)
+      .then(response => response.json())
+      .then((json) => {dispatch(setTracks(json.data)); 
+      });
+  };
+}
+
+
+
+export function setTracks(tracks) {
+  return {
+    type: TRACKS_SET,
+    tracks
+  };
+};
