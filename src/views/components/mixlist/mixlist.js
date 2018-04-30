@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { fetchMixes, invalidateMixcloud} from "../../../core/actions"
+import { fetchMixes} from "../../../core/actions"
 // import { fetchMixes, mixesActions } from '../../../core/mixes/index.js'
 import { connect, bindActionCreators } from 'react-redux'
 import classNames from 'classnames'

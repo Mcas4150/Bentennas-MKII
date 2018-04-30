@@ -11,6 +11,7 @@ export const REQUEST_PLAYER = 'REQUEST_PLAYER'
 export const RECEIVE_PLAYER = 'RECEIVE_PLAYER'
 export const PLAY_MIX = 'PLAY_MIX'
 export const TRACKS_SET = 'TRACKS_SET';
+export const TRACK_PLAY = 'TRACK_PLAY';
 
 
 export function loadPlayer(newUrl) {
@@ -128,3 +129,10 @@ export function setTracks(tracks) {
     tracks
   };
 };
+
+export function playTrack(track) {
+  return {
+    type: TRACK_PLAY,
+    track
+  };
+}

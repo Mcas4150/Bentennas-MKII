@@ -30,7 +30,7 @@ const  FooterPlayer = props => (
 //     const { newurl } = this.props
 //     return (
        <div> 
-        <div onClick={props.playerReducer}> pizza </div>
+        <div onClick={props.playerReducer}></div>
         <div className="footer__player">
             <ReactPlayer
               url=""

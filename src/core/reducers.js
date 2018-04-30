@@ -7,7 +7,7 @@ import {
   PLAY_MIX
 } from './actions'
 import { mixesReducer } from './mixes'
-import track from './track';
+import {trackReducer } from './track';
  
 
 
@@ -146,7 +146,7 @@ const rootReducer = combineReducers({
   mixesReducer,
   playerReducer,
   videosByYoutube,
-  track
+  trackReducer
 })
  
 export default rootReducer

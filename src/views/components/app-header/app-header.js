@@ -1,9 +1,29 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import classNames from 'classnames'
 import './app-header.css';
 
+ 
+  let headerClassType = classNames('desktop')
 
-
+  function menuTransition () {
+    let el = document.querySelector("div.hidden");
+    let search = document.querySelector('div.search');
+    let border = document.querySelector("div.btn-outer");
+       if (el) {
+         el.className = "visible";
+         search.className = "search-hidden";
+         border.className = "nav-item btn-outer-top menu-btn";
+       } else {
+         search = document.querySelector('div.search-hidden');
+         search.className = "search";
+         el = document.querySelector("div.visible");
+         el.className = "hidden";
+         border = document.querySelector("div.btn-outer-top");
+         border.className = "nav-item btn-outer menu-btn";
+       }
+       return el;
+   };
 
 
 class AppHeader extends Component {
@@ -34,8 +54,8 @@ class AppHeader extends Component {
                  </div>
                </div>
            </div> */}
-         {/*Desktopy*/}
-           <div className="desktop">
+         {/* Desktop */}
+           <div className={headerClassType}>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/"}>MIXES</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/videos"}>VIDEOS</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/events"}>EVENTS</NavLink>
