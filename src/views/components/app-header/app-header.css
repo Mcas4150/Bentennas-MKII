@@ -76,3 +76,10 @@
       overflow-y: none;
   }
   
+  .header__left, .header__right{
+      display: inline-block;
+  }
+
+  .header__title{
+      font-family: serif;
+  }

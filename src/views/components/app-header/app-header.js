@@ -56,11 +56,16 @@ class AppHeader extends Component {
            </div> */}
          {/* Desktop */}
            <div className={headerClassType}>
+              <div className="header__left">
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/"}>MIXES</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/videos"}>VIDEOS</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/events"}>EVENTS</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"https://nts.ochre.store/"} target="_blank">SHOP</NavLink>
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/about"}>ABOUT</NavLink>
+              </div>
+              <div className="header__right">
+                {/* <div className="header__title">BENTENNAS</div> */}
+              </div>
            </div>
          </div>
        </div>
