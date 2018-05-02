@@ -33,7 +33,7 @@ const  FooterPlayer = props => (
         <div onClick={props.playerReducer}></div>
         <div className="footer__player">
             <ReactPlayer
-              url=""
+              url="https://www.mixcloud.com/NTSRadio/whos-that-girl-30th-april-2018/"
               width="100%"
               height="60px"
               controls="true"
