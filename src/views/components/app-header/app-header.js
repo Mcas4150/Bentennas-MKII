@@ -64,7 +64,7 @@ class AppHeader extends Component {
                 <NavLink className="nav-item btn-outer" activeClassName="btn-outer-top" to={"/about"}>ABOUT</NavLink>
               </div>
               <div className="header__right">
-                {/* <div className="header__title">BENTENNAS</div> */}
+                <div className="header__title">BENTENNAS</div>
               </div>
            </div>
          </div>

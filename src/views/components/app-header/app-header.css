@@ -80,6 +80,7 @@
       display: inline-block;
   }
 
-  .header__title{
-      font-family: serif;
+  .header__right{
+      float:right;
+      padding-right:5px;
   }
